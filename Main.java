@@ -354,9 +354,10 @@ public class Main {
               else
                 System.out.print("·[4] No utiliza mercurio");
             } else {
-              if (mercurios[celda])
-                System.out.print("· Utiliza mercurio [NO CONTACTO]");
-              else
+              if (mercurios[celda]){
+                mercurios[celda] = false;
+                System.out.print("· No utiliza mercurio [NO CONTACTO]");
+              } else
                 System.out.print("· No utiliza mercurio [NO CONTACTO]");
             }
 
