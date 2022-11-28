@@ -11,6 +11,10 @@ public class Main {
     char tipos[] = new char[ESPACIOS];
     boolean mercurios[] = new boolean[ESPACIOS];
     int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0, respMod = 0, modComp = 0;
+    int portClaves = 0;
+    float portPrecios = 0;
+    char portTipos = ' ';
+    boolean portMercurios = false;
     // resp = Variable para bucle del menú
     // cont = Cantidad de datos registrados
     // tipoComp = Verificación de ingresar caracter valido en tipos[]
@@ -32,6 +36,14 @@ public class Main {
       System.out.println("[6] Finalizar programa");
       System.out.print("-. Ingrese la acción que desea realizar: ");
       resp = leer.nextInt();
+      leer.nextLine();
+      
+      // Linea 49: Añadir
+      // Linea 148: Consulta (Indiv.)
+      // Linea 200: Consulta (Gen.)
+      // Linea : Modificación
+      // Linea : Eliminación
+      // Linea : Finalización
 
       switch (resp){
         case 1: // Añadir termometro
@@ -71,7 +83,6 @@ public class Main {
               System.out.println("[T] Termometro de contacto");
               System.out.println("[R] Termometro sin contacto");
               System.out.print("- Ingrese el tipo de termometro [T-R]: ");
-              tipo = leer.nextLine().charAt(0);
               tipoComp = (int)Character.toLowerCase(tipo);
 
               do{
@@ -186,6 +197,55 @@ public class Main {
           break;
 
         case 3: // Consulta general
+          if (cont == 0){
+            System.out.println("\n!-.!.-.!.-.!.-.!.-.!.-.!.-.!");
+            System.out.println("ERROR: No hay clave registrada");
+            System.out.println("!-.!.-.!.-.!.-.!.-.!.-.!.-.!\n");
+            break;
+          }
+          
+          for (int x = 0 ; x < cont - 1 ; x++){
+            if (claves[x] > claves[x + 1]){
+               portClaves = claves[x + 1];
+               portPrecios = precios[x + 1];
+               portTipos = tipos[x + 1];
+               portMercurios = mercurios[x + 1];
+               
+               claves[x + 1] = claves[x];
+               precios[x + 1] = precios[x];
+               tipos[x + 1] = tipos[x];
+               mercurios[x + 1] = mercurios[x];
+               
+               claves[x] = portClaves;
+               precios[x] = portPrecios;
+               tipos[x] = portTipos;
+               mercurios[x] = portMercurios;
+            }
+          }
+          
+          System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-\n");
+          
+          for (int y = 0 ; y < cont ; y++){
+            System.out.printf("-. [TERMOMETRO CON CLAVE %d] .-\n", claves[y]);
+            System.out.printf("· Nombre del termometro: %s\n", nombres[y]);
+            System.out.printf("· Precio del termometro: $%.2f\n", precios[y]);
+            tipoComp = (int)Character.toLowerCase(tipos[y]);
+            switch (tipoComp){
+               case 116:
+                  System.out.print("· Tipo de termometro: Termometro de contacto\n");
+                  break;
+               case 114:
+                  System.out.print("· Tipo de termometro: Termometro sin contacto\n");
+                  break;
+            }
+            if (mercurios[y])
+               System.out.println("· Utiliza mercurio\n");
+            else
+               System.out.println("· No utiliza mercurio\n");
+          }
+          
+          System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
+          
           break;    
         case 4: // Modificaciones
           if (cont == 0){
@@ -235,12 +295,12 @@ public class Main {
               System.out.print("·[4] No utiliza mercurio");
           } else {
             if (mercurios[celda])
-              System.out.print("· Utiliza mercurio [NO CONTACTO]");
+              System.out.print("· No utiliza mercurio [NO CONTACTO]");
             else
               System.out.print("· No utiliza mercurio [NO CONTACTO]");
           }
 
-          if (mercurios[celda]){
+          if (tipoComp == 116){
             System.out.print("\n\n- Inserte el número del dato que desea modificar [1-4]: ");
             respMod = leer.nextInt();
           } else {
@@ -301,6 +361,7 @@ public class Main {
                     respMod = leer.nextInt();
                     leer.nextLine();
                     error = true;
+                    break;
                   }
 
                   System.out.print("- ¿Utiliza mercurio? [Y - Si, N - No]: ");
