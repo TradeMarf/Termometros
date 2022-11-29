@@ -83,6 +83,7 @@ public class Main {
               System.out.println("[T] Termometro de contacto");
               System.out.println("[R] Termometro sin contacto");
               System.out.print("- Ingrese el tipo de termometro [T-R]: ");
+              tipo = leer.nextLine().charAt(0);
               tipoComp = (int)Character.toLowerCase(tipo);
 
               do{
@@ -275,128 +276,7 @@ public class Main {
             System.out.println("!-.!.-.!.-.!.-.!.-.!.-.!.-.!\n");
             break;
           }
-
-          System.out.printf("\n-. [TERMOMETRO CON CLAVE %d] .-\n", clave);
-          System.out.printf("·[1] Nombre del termometro: %s\n", nombres[celda]);
-          System.out.printf("·[2] Precio del termometro: $%.2f\n", precios[celda]);
-          tipoComp = (int)Character.toLowerCase(tipos[celda]);
-          switch (tipoComp){
-            case 116:
-              System.out.print("·[3] Tipo de termometro: Termometro de contacto\n");
-              break;
-            case 114:
-              System.out.print("·[3] Tipo de termometro: Termometro sin contacto\n");
-              break;
-          }
-          if (tipoComp == 116){
-            if (mercurios[celda])
-              System.out.print("·[4] Utiliza mercurio");
-            else
-              System.out.print("·[4] No utiliza mercurio");
-          } else {
-            if (mercurios[celda])
-              System.out.print("· No utiliza mercurio [NO CONTACTO]");
-            else
-              System.out.print("· No utiliza mercurio [NO CONTACTO]");
-          }
-
-          if (tipoComp == 116){
-            System.out.print("\n\n- Inserte el número del dato que desea modificar [1-4]: ");
-            respMod = leer.nextInt();
-          } else {
-            System.out.print("\n\n- Inserte el número del dato que desea modificar [1-3]: ");
-            respMod = leer.nextInt();
-          }
-          leer.nextLine();
           do{
-            do{
-              switch (respMod) {
-                case 1: // Nombre
-                  System.out.print("- Ingrese el nuevo nombre del termometro: ");
-                  nombres[celda] = leer.nextLine();
-                  error = false;
-                  break;
-                
-                case 2: // Precio
-                  System.out.print("- Ingrese el nuevo precio del termometro: $");
-                  precios[celda] = leer.nextFloat();
-                  leer.nextLine();
-                  error = false;
-                  break;
-                
-                case 3: // Tipo
-                System.out.println("-. De las siguientes opciones, elija el tipo de termometro .-");
-                System.out.println("[T] Termometro de contacto");
-                System.out.println("[R] Termometro sin contacto");
-                System.out.print("- Ingrese el tipo de termometro [T-R]: ");
-                tipo = leer.nextLine().charAt(0);
-                tipoComp = (int)Character.toLowerCase(tipo);
-
-                do{
-                  switch (tipoComp){
-                    case 116:
-                      tipos[celda] = tipo;
-                      valError = false;
-                      break;
-                    case 114:
-                      tipos[celda] = tipo;
-                      valError = false;
-                      break;
-                    default:
-                      System.out.print("- Ingrese un caracter valido de opción [T-R]: ");
-                      tipo = leer.nextLine().charAt(0);
-                      tipoComp = (int)Character.toLowerCase(tipo);
-                      valError = true;
-                      break;
-                  }
-                  error = false;
-                } while (valError);  
-                break;
-                
-                case 4: // Mercurio
-                  tipo = tipos[celda];
-                  tipoComp = (int)tipo;
-                  if (tipoComp == 114){
-                    System.out.print("- Ingrese un caracter valido de opción [1-3]: ");
-                    respMod = leer.nextInt();
-                    leer.nextLine();
-                    error = true;
-                    break;
-                  }
-
-                  System.out.print("- ¿Utiliza mercurio? [Y - Si, N - No]: ");
-                  merChar = leer.nextLine().charAt(0);
-                  merComp = (int)Character.toLowerCase(merChar);
-
-                  do{
-                    switch (merComp){
-                      case 121:
-                        mercurios[celda] = true;
-                        valError = false;
-                        break;
-                      case 110:
-                        mercurios[celda] = false;
-                        valError = false;
-                        break;
-                      default:
-                        System.out.print("- Ingrese un caracter valido de opción [Y - Si, N - No]: ");
-                        merChar = leer.nextLine().charAt(0);
-                        merComp = (int)Character.toLowerCase(merChar);
-                        valError = true;
-                        break;
-                    }
-                  } while (valError);  
-                  break;
-                
-                default:
-                  System.out.print("- Ingrese un caracter valido de opción [1-4]: ");
-                  respMod = leer.nextInt();
-                  leer.nextLine();
-                  error = true;
-                  break;
-              }
-            } while (error);
-
             System.out.printf("\n-. [TERMOMETRO CON CLAVE %d] .-\n", clave);
             System.out.printf("·[1] Nombre del termometro: %s\n", nombres[celda]);
             System.out.printf("·[2] Precio del termometro: $%.2f\n", precios[celda]);
@@ -414,50 +294,124 @@ public class Main {
                 System.out.print("·[4] Utiliza mercurio");
               else
                 System.out.print("·[4] No utiliza mercurio");
+              System.out.print("\n·[5] Finalizar modificación");
             } else {
-              if (mercurios[celda]){
-                mercurios[celda] = false;
+              if (mercurios[celda])
                 System.out.print("· No utiliza mercurio [NO CONTACTO]");
-              } else
+              else
                 System.out.print("· No utiliza mercurio [NO CONTACTO]");
+              System.out.print("\n·[4] Finalizar modificación");
             }
-
-            System.out.print("\n\n- ¿Desea modificar otro dato? [Y = Si, N = No]: ");
-            modChar = leer.nextLine().charAt(0);
-            modComp = (int)Character.toLowerCase(modChar);
-            
+   
+            if (tipoComp == 116){
+              System.out.print("\n\n- Inserte el número del dato que desea modificar [1-5]: ");
+              respMod = leer.nextInt();
+            } else {
+              System.out.print("\n\n- Inserte el número del dato que desea modificar [1-4]: ");
+              respMod = leer.nextInt();
+            }
+            leer.nextLine();
             do{
-              switch (modComp){
-                case 121:
-                  modificar = true;
-                  valError = false;
+                switch (respMod) {
+                  case 1: // Nombre
+                    System.out.print("- Ingrese el nuevo nombre del termometro: ");
+                    nombres[celda] = leer.nextLine();
+                    error = false;
+                    break;
+                  
+                  case 2: // Precio
+                    System.out.print("- Ingrese el nuevo precio del termometro: $");
+                    precios[celda] = leer.nextFloat();
+                    leer.nextLine();
+                    error = false;
+                    break;
+                  
+                  case 3: // Tipo
+                  System.out.println("-. De las siguientes opciones, elija el tipo de termometro .-");
+                  System.out.println("[T] Termometro de contacto");
+                  System.out.println("[R] Termometro sin contacto");
+                  System.out.print("- Ingrese el tipo de termometro [T-R]: ");
+                  tipo = leer.nextLine().charAt(0);
+                  tipoComp = (int)Character.toLowerCase(tipo);
+   
+                  do{
+                    switch (tipoComp){
+                      case 116:
+                        tipos[celda] = tipo;
+                        valError = false;
+                        break;
+                      case 114:
+                        tipos[celda] = tipo;
+                        mercurios[celda] = false;
+                        valError = false;
+                        break;
+                      default:
+                        System.out.print("- Ingrese un caracter valido de opción [T-R]: ");
+                        tipo = leer.nextLine().charAt(0);
+                        tipoComp = (int)Character.toLowerCase(tipo);
+                        valError = true;
+                        break;
+                    }
+                    error = false;
+                  } while (valError);  
                   break;
-                case 110:
-                  modificar = false;
-                  valError = false;
-                  break;
-                default:
-                  System.out.print("- Ingrese un caracter valido de opción [Y - Si, N - No]: ");
-                  modChar = leer.nextLine().charAt(0);
-                  modComp = (int)Character.toLowerCase(modChar);
-                  valError = true;
-                  break;
-                  }
-                } while (valError);
-
-              if (modificar){
-                if (tipoComp == 116){
-                  System.out.print("\n\n- Inserte el número del dato que desea modificar [1-4]: ");
-                  respMod = leer.nextInt();
-                } else {
-                  System.out.print("\n\n- Inserte el número del dato que desea modificar [1-3]: ");
-                  respMod = leer.nextInt();
+                  
+                  case 4: // Mercurio
+                    tipo = tipos[celda];
+                    tipoComp = (int)tipo;
+                    if (tipoComp == 114){
+                      modificar = false;
+                      error = false;
+                      break;
+                    }
+   
+                    System.out.print("- ¿Utiliza mercurio? [Y - Si, N - No]: ");
+                    merChar = leer.nextLine().charAt(0);
+                    merComp = (int)Character.toLowerCase(merChar);
+   
+                    do{
+                      switch (merComp){
+                        case 121:
+                          mercurios[celda] = true;
+                          valError = false;
+                          break;
+                        case 110:
+                          mercurios[celda] = false;
+                          valError = false;
+                          break;
+                        default:
+                          System.out.print("- Ingrese un caracter valido de opción [Y - Si, N - No]: ");
+                          merChar = leer.nextLine().charAt(0);
+                          merComp = (int)Character.toLowerCase(merChar);
+                          valError = true;
+                          break;
+                      }
+                    } while (valError);  
+                    break;
+                  
+                  case 5: // Finalizar
+                    if (tipoComp == 116)
+                       modificar = false;
+                    else{
+                       System.out.print("Ingrese un caracter de opción valido [1-4]: ");
+                       respMod = leer.nextInt();
+                       leer.nextLine();
+                       error = true;
+                    }
+                    break;
+                  default:
+                    if (tipoComp == 116)
+                       System.out.print("- Ingrese un caracter valido de opción [1-5]: ");
+                    else
+                       System.out.print("- Ingrese un caracter valido de opción [1-4]: ");
+                    respMod = leer.nextInt();
+                    leer.nextLine();
+                    error = true;
+                    break;
                 }
-                leer.nextLine();
-              }
-            
-          } while (modificar);
-
+              } while (error);
+            } while (modificar);
+   
           System.out.println("\n\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
           modificar = true;
           valError = false;
