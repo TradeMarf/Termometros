@@ -10,7 +10,7 @@ public class Main {
     float precios[] = new float[ESPACIOS];
     char tipos[] = new char[ESPACIOS];
     boolean mercurios[] = new boolean[ESPACIOS];
-    int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0, respMod = 0, modComp = 0;
+    int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0;
     int portClaves = 0;
     float portPrecios = 0;
     char portTipos = ' ';
@@ -20,8 +20,6 @@ public class Main {
     // tipoComp = Verificación de ingresar caracter valido en tipos[]
     // celda = Variable para registrar la celda donde se encuentra la clave
     // mercComp = Verificación para ingresar caracter valido en mercurios[]
-    // respMod = Variable para respuesta de que dato modificar
-    // modComp = Verificación para respuesta de modificar otro
     
     char tipo = ' ', merChar = ' ', modChar = ' ';
     boolean valError = false, error = false, mercurio = false, modificar = true;
