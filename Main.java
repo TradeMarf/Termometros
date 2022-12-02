@@ -10,7 +10,7 @@ public class Main {
     float precios[] = new float[ESPACIOS];
     char tipos[] = new char[ESPACIOS];
     boolean mercurios[] = new boolean[ESPACIOS];
-    int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0;
+    int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0, respMod = 0, existe = 0;
     int portClaves = 0;
     float portPrecios = 0;
     char portTipos = ' ';
@@ -25,7 +25,7 @@ public class Main {
     boolean valError = false, error = false, mercurio = false, modificar = true;
 
     do{
-      System.out.println("-. TIENDA DE TERMOMETROS .-");
+      System.out.println("-. TERMOMETROS LOS CALIENTES DE CD. GUZMÁN .-");
       System.out.println("[1] Añadir un termometro");
       System.out.println("[2] Consultar un termometro");
       System.out.println("[3] Consultar todos los termometros");
@@ -39,9 +39,9 @@ public class Main {
       // Linea 49: Añadir
       // Linea 148: Consulta (Indiv.)
       // Linea 200: Consulta (Gen.)
-      // Linea : Modificación
-      // Linea : Eliminación
-      // Linea : Finalización
+      // Linea 249: Modificación
+      // Linea 417: Eliminación
+      // Linea 475: Finalización
 
       switch (resp){
         case 1: // Añadir termometro
@@ -243,7 +243,7 @@ public class Main {
                System.out.println("· No utiliza mercurio\n");
           }
           
-          System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
+          System.out.println("-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
           
           break;    
         case 4: // Modificaciones
@@ -415,14 +415,79 @@ public class Main {
           valError = false;
           break;
         case 5: // Eliminación
-          break;
-        case 6: // Finalización
-          break;
-        default:
+          System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
+          System.out.printf("ELIMINACION DEL PRODUCTO\n");
 
-      }
-                
-              
-    } while (resp != 6);
+          if (cont > 0) { 
+            System.out.printf("Ingrese la clave del producto: ");
+            clave= leer.nextInt();
+            if (clave >=1 && clave <= 111){
+               existe = -1;
+               for(int x = 0; x < cont; x++){
+                  if (clave == claves[x]){
+                     existe=x;
+                     break;
+                  }
+               }
+            }
+   
+               if(existe != -1){
+                  System.out.printf("- Nombre del producto: %s\n" ,nombres[existe]);
+                  System.out.printf("- Precio del producto: $%.2f\n" , precios[existe]);
+                  if (tipos[existe] == 't'){
+                     System.out.println("- Tipo del producto: Termometro con Contacto");
+                  } else{
+                     System.out.println("- Tipo del producto: Termometro sin Contacto");
+                  }
+                  if (mercurios[existe]){
+                     System.out.println("- Contiene mercurio");
+                  } else{
+                     System.out.println("- No contiene mercurio");
+                  }
+                  
+                  System.out.print("Estas seguro de eliminar el producto? [Si = S] [No = N]: ");
+                  leer.nextLine();
+                  resp= leer.nextLine().charAt(0);
+                  if(resp == 'S'|| resp == 's'){
+                    claves[existe] = 0;
+                    for (int x = existe; x < cont - 1 ; x++){
+                     claves[x] = claves[x+1];
+                     nombres[x] = nombres[x+1];
+                     precios[x] = precios[x+1];
+                     mercurios[x] = mercurios[x+1];
+                     tipos[x] = tipos[x+1];
+                    }
+                           
+                    cont--;
+                    System.out.println("El producto fue eliminado");
+                          
+                  }else{   
+                     System.out.println("No se eliminó ningun producto");
+                  }
+               }else{
+                  System.out.printf("No hay productos con esa clave\n");
+               }
+           }else{
+            System.out.printf("No hay productos registrados\n");
+           }
+           System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
+         break;
+        case 6: // Finalización
+          System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
+          System.out.println("[PROYECTO DEL EQUIPO 17]");
+          System.out.println("· Creado por:");
+          System.out.println("- Miguel Angel Ramirez Farias");
+          System.out.println("- Ronaldo Varona Baranda");
+          System.out.println("Fecha: 1 de diciembre del 2022");
+          System.out.print("-·-·-·-·-·-·-·-·-·-·-·-·-·-·-");
+          break;
+          
+        default:
+          System.out.println("\n!-.!.-.!.-.!.-.!.-.!.-.!.-.!");
+          System.out.println("ERROR: Opción no valida");
+          System.out.println("!-.!.-.!.-.!.-.!.-.!.-.!.-.!\n");
+          break;
+      }   
+    } while (resp != 6);  
   }
 }
