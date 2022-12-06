@@ -10,8 +10,9 @@ public class Main {
     float precios[] = new float[ESPACIOS];
     char tipos[] = new char[ESPACIOS];
     boolean mercurios[] = new boolean[ESPACIOS];
-    int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0, respMod = 0, existe = 0;
+    int resp = 0, cont = 0, clave = 0, tipoComp = 0, celda = 0, merComp = 0, respMod = 0, existe = 0, contTam = 0;
     int portClaves = 0;
+    String portNombres = " ";
     float portPrecios = 0;
     char portTipos = ' ';
     boolean portMercurios = false;
@@ -203,23 +204,28 @@ public class Main {
             break;
           }
           
-          for (int x = 0 ; x < cont - 1 ; x++){
-            if (claves[x] > claves[x + 1]){
-               portClaves = claves[x + 1];
-               portPrecios = precios[x + 1];
-               portTipos = tipos[x + 1];
-               portMercurios = mercurios[x + 1];
-               
-               claves[x + 1] = claves[x];
-               precios[x + 1] = precios[x];
-               tipos[x + 1] = tipos[x];
-               mercurios[x + 1] = mercurios[x];
-               
-               claves[x] = portClaves;
-               precios[x] = portPrecios;
-               tipos[x] = portTipos;
-               mercurios[x] = portMercurios;
-            }
+          for (int x = 0 ; x < cont - 1 ; x++) {
+             for (int y = 0 ; y < cont - x - 1; y++){ 
+               if (claves[y + 1] < claves[y]){      
+                 portClaves = claves[y + 1];
+                 portPrecios = precios[y + 1];
+                 portNombres = nombres[y + 1];
+                 portTipos = tipos[y + 1];
+                 portMercurios = mercurios[y + 1];
+                 
+                 claves[y + 1] = claves[y];
+                 precios[y + 1] = precios[y];
+                 nombres[y + 1] = nombres[y];
+                 tipos[y + 1] = tipos[y];
+                 mercurios[y + 1] = mercurios[y];
+                 
+                 nombres[y] = portNombres;
+                 claves[y] = portClaves;
+                 precios[y] = portPrecios;
+                 tipos[y] = portTipos;
+                 mercurios[y] = portMercurios;
+               }
+             }
           }
           
           System.out.println("\n-·-·-·-·-·-·-·-·-·-·-·-·-·-·-\n");
